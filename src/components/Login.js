@@ -3,16 +3,21 @@ import Header from './Header'
 import { checkValidation } from '../utils/Validate'
 import { auth } from '../utils/Firebase'
 import {  signInWithEmailAndPassword , createUserWithEmailAndPassword } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
 
 export const Login = () => {
     const [isSignInForm,setSignInForm] = useState(true)
     const [errorMessage,setErrorMessage] = useState()
-    const toggleSignInForm =()=>{
-        setSignInForm(!isSignInForm)
-    }
     const name = useRef(null)
     const email = useRef(null)
     const password = useRef(null)
+    const navigate = useNavigate()
+
+
+    const toggleSignInForm =()=>{
+        setSignInForm(!isSignInForm)
+    }
+
     const handleButtonClick = () =>{
         const message = checkValidation(email.current.value,password.current.value)
         setErrorMessage(message)
@@ -24,6 +29,8 @@ export const Login = () => {
             .then((userCredential)=>{
                 const user = userCredential.user
                 console.log(user)
+                navigate("/browse")
+
             }).catch((error)=>{
                 const errorCode = error.code;
                 const errorMessage = error.message
@@ -35,6 +42,7 @@ export const Login = () => {
             .then((userCredential) => { 
             const user = userCredential.user;
             console.log(user)
+            navigate("/browse")
   })
   .catch((error) => {
     const errorCode = error.code;
