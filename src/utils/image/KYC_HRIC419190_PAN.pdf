@@ -1,0 +1,1040 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1"><title>
+
+</title><link href="https://hric.hdbfs.com/HBL/CSS/COPS_MAIN_CSS.css" rel="stylesheet" type="text/css" /><link rel="icon" type="image/ico" href="images/icon.gif" /><meta http-equiv="Page-Enter" content="blendTrans(Duration=0.2)" /><meta http-equiv="Page-Exit" content="blendTrans(Duration=0.2)" />   
+    <script type="text/javascript" src="CSS/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+            //Nested Side Bar Menu (Mar 20th, 09)
+        //By Dynamic Drive: http://www.dynamicdrive.com/style/
+
+        var menuids = ["sidebarmenu1"] //Enter id(s) of each Side Bar Menu's main UL, separated by commas
+
+        function pageLoad() {
+
+            for (var i = 0; i < menuids.length; i++) {
+                var ultags = document.getElementById(menuids[i]).getElementsByTagName("ul")
+                for (var t = 0; t < ultags.length; t++) {
+                    ultags[t].parentNode.getElementsByTagName("a")[0].className += " subfolderstyle"
+                    if (ultags[t].parentNode.parentNode.id == menuids[i]) //if this is a first level submenu
+                        ultags[t].style.left = ultags[t].parentNode.offsetWidth + "px" //dynamically position first level submenus to be width of main menu item
+                    else //else if this is a sub level submenu (ul)
+                        ultags[t].style.left = ultags[t - 1].getElementsByTagName("a")[0].offsetWidth + "px" //position menu to the right of menu item that activated it
+                    ultags[t].parentNode.onmouseover = function () {
+                        this.getElementsByTagName("ul")[0].style.display = "block"
+                    }
+                    ultags[t].parentNode.onmouseout = function () {
+                        this.getElementsByTagName("ul")[0].style.display = "none"
+                    }
+                }
+                for (var t = ultags.length - 1; t > -1; t--) { //loop through all sub menus again, and use "display:none" to hide menus (to prevent possible page scrollbars
+                    ultags[t].style.visibility = "visible"
+                    ultags[t].style.display = "none"
+                }
+            }
+        }
+
+        if (window.addEventListener)
+            window.addEventListener("load", pageLoad, false)
+        else if (window.attachEvent)
+            window.attachEvent("onload", pageLoad)
+    </script>
+    
+     <script type="text/javascript" language="javascript">
+        (function () {
+
+            if (screen.width <= 767) {
+
+                window.location.href = "JF-EmpStatus-m.aspx";
+            } else {
+                //  return false;
+                return true;
+            }
+
+        })();
+    </script>
+    <script type="text/javascript" language="javascript">
+        function Gettimer1() {
+            setInterval(function () {
+                Enablefunction();
+            }, 60000);
+            return false;
+        }
+
+        function Enablefunction() {
+            if (document.getElementById("ContentPlaceHolder1_HidOTPcount").value == "4") {
+            }
+            else {
+                document.getElementById("ContentPlaceHolder1_btnresendOTP").disabled = false;
+            }
+        }
+
+
+        function DateSelectionChanged2(e) {
+            var today = new Date();
+            var dob = e.get_selectedDate();
+            if (dob.getDay() == 0) {
+                alert("Date of joining can not be Sunday");
+                document.getElementById("ContentPlaceHolder1_txtdateofjoin").value = "";
+            }
+        }
+
+        function preventBackspace(e) {
+            var evt = e || window.event;
+            if (evt) {
+                var keyCode = evt.charCode || evt.keyCode;
+                if (keyCode === 8) {
+                    if (evt.preventDefault) {
+                        evt.preventDefault();
+                    } else {
+                        evt.returnValue = false;
+                    }
+                }
+            }
+        }
+
+        function mgrid_ClientClicked() {
+            document.getElementById("demo").innerHTML = "";
+            document.getElementById("demo").innerHTML = "Please enter the Employee ID of your reporting manager.";
+        }
+        function enable() {
+            if (document.getElementById("ContentPlaceHolder1_txtReportingtoID").value == "") {
+                alert("Enter Manager ID");
+                document.getElementById("ContentPlaceHolder1_txtReportingtoID").focus();
+                return false;
+            }
+            if (document.getElementById("ContentPlaceHolder1_txtReportingtoName").value == "") {
+                alert("Please enter correct Manager employee code.");
+                document.getElementById("ContentPlaceHolder1_txtReportingtoID").focus();
+                return false;
+            }
+            if (document.getElementById("ContentPlaceHolder1_txtdateofjoin").value == "") {
+                alert("Select Date of Joining");
+                document.getElementById("ContentPlaceHolder1_txtdateofjoin").focus();
+                return false;
+            }
+            var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds          
+            var firstDate = new Date(document.getElementById("ContentPlaceHolder1_HiddenField10").value);
+            var finaldate = firstDate.getDate() + '/' + (firstDate.getMonth() + 1) + '/' + firstDate.getFullYear();
+            var secondDate = new Date(document.getElementById("ContentPlaceHolder1_txtdateofjoin").value);
+            var diffDays = Math.round((firstDate.getTime() - secondDate.getTime()) / (oneDay));
+            if (diffDays > 0) {
+                alert("Your Appointment Letter is dated " + finaldate + ". Date of Joining can not be prior to this date. If you wish to rectify the Appointment Letter date, please contact your reporting manager or Regional HR.  You will not be able to proceed till the Appointment Letter date is rectified.");
+                document.getElementById("ContentPlaceHolder1_txtdateofjoin").focus();
+                return false;
+            }
+     
+            if (document.getElementById("ContentPlaceHolder1_CheckBox1").checked == false) {
+                document.getElementById("ContentPlaceHolder1_CheckBox1").focus();
+                alert("Check I Accept Declaration");
+                return false;
+            }
+            var isChecked = false;
+            for (var i = 0; i < document.getElementById("ContentPlaceHolder1_rbtlinkmobile").getElementsByTagName("input").length; i++) {
+                if (document.getElementById("ContentPlaceHolder1_rbtlinkmobile").getElementsByTagName("input")[i].checked) {
+                    isChecked = true;
+                    break;
+                }
+            }
+            if (!isChecked) {
+                alert("Select Yes/No for mobile updated in AADHAAR data");
+                document.getElementById("ContentPlaceHolder1_rbtlinkmobile").focus();
+                return false;
+            }
+            var retVal = confirm("Please recheck all the entered details. You will not to be able to edit any details once submitted. Do you really want to submit ?");
+            if (retVal == true) {
+                Gettimer1();
+                //return true;
+            }
+            else {
+                return false;
+            }
+        }
+        function enable3() {
+            if (document.getElementById("ContentPlaceHolder1_CheckBox2").checked == false) {
+                document.getElementById("ContentPlaceHolder1_CheckBox2").focus();
+                alert("Check Statutory Forms Declaration");
+                return false;
+            }
+        }
+
+        function enable2() {
+            if (document.getElementById("ContentPlaceHolder1_txtReportingtoID").value == "") {
+                alert("Enter Manager ID");
+                document.getElementById("ContentPlaceHolder1_txtReportingtoID").focus();
+                return false;
+            }
+            if (document.getElementById("ContentPlaceHolder1_txtReportingtoName").value == "") {
+                alert("Please enter correct Manager employee code.");
+                document.getElementById("ContentPlaceHolder1_txtReportingtoID").focus();
+                return false;
+            }
+            if (document.getElementById("ContentPlaceHolder1_txtdateofjoin").value == "") {
+                alert("Select Date of Joining");
+                document.getElementById("ContentPlaceHolder1_txtdateofjoin").focus();
+                return false;
+            }
+            var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds          
+            var firstDate = new Date(document.getElementById("ContentPlaceHolder1_HiddenField10").value);
+            var finaldate = firstDate.getDate() + '/' + (firstDate.getMonth() + 1) + '/' + firstDate.getFullYear();
+            var secondDate = new Date(document.getElementById("ContentPlaceHolder1_txtdateofjoin").value);
+            var diffDays = Math.round((firstDate.getTime() - secondDate.getTime()) / (oneDay));
+            if (diffDays > 0) {
+                alert("Your Appointment Letter is dated " + finaldate + ". Date of Joining can not be prior to this date. If you wish to rectify the Appointment Letter date, please contact your reporting manager or Regional HR.  You will not be able to proceed till the Appointment Letter date is rectified.");
+                document.getElementById("ContentPlaceHolder1_txtdateofjoin").focus();
+                return false;
+            }
+            
+            if (document.getElementById("ContentPlaceHolder1_CheckBox1").checked == false) {
+                document.getElementById("ContentPlaceHolder1_CheckBox1").focus();
+                alert("Check I Accept Declaration");
+                return false;
+            }
+
+
+
+
+            var retVal = confirm("Please recheck all the entered details. You will not to be able to edit any details once submitted. Do you really want to submit ?");
+            if (retVal == true) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function StatFormsUpload() {
+
+            if (document.getElementById("ContentPlaceHolder1_CheckBox3").checked == false) {
+                document.getElementById("ContentPlaceHolder1_CheckBox3").focus();
+                alert("Check Statutory Forms Declaration");
+                return false;
+            }
+
+            if (document.getElementById("ContentPlaceHolder1_fuPFnomination").value == "") {
+                if (document.getElementById("ContentPlaceHolder1_HiddenF_PFPath").value == "" || document.getElementById("ContentPlaceHolder1_HiddenF_PFPath").value == "#") {
+                    alert('Please upload PF Nomination Form');
+                    document.getElementById("ContentPlaceHolder1_fuPFnomination").focus();
+                    return false;
+                }
+            }
+            if (document.getElementById("ContentPlaceHolder1_fpGratuity").value == "") {
+                if (document.getElementById("ContentPlaceHolder1_HiddenF_GratPath").value == "" || document.getElementById("ContentPlaceHolder1_HiddenF_GratPath").value == "#") {
+                    alert('Please upload Gratuity Form');
+                    document.getElementById("ContentPlaceHolder1_fpGratuity").focus();
+                    return false;
+                }
+            }
+            if (document.getElementById("ContentPlaceHolder1_fuEPFO").value == "") {
+                if (document.getElementById("ContentPlaceHolder1_HiddenF_EPFOPath").value == "" || document.getElementById("ContentPlaceHolder1_HiddenF_EPFOPath").value == "#") {
+                    alert('Please upload EPFO Form');
+                    document.getElementById("ContentPlaceHolder1_fuEPFO").focus();
+                    return false;
+                }
+            }
+            if (document.getElementById("ContentPlaceHolder1_HiddenField24").value == "1") {
+                if (document.getElementById("ContentPlaceHolder1_fuESIC").value == "") {
+                    if (document.getElementById("ContentPlaceHolder1_HiddenF_ESICPath").value == "" || document.getElementById("ContentPlaceHolder1_HiddenF_ESICPath").value == "#") {
+                        alert('Please upload ESIC Form');
+                        document.getElementById("ContentPlaceHolder1_fuESIC").focus();
+                        return false;
+                    }
+                }
+            }
+
+            if (document.getElementById("ContentPlaceHolder1_fuAL").value == "") {
+                if (document.getElementById("ContentPlaceHolder1_HiddenF_ALPath").value == "" || document.getElementById("ContentPlaceHolder1_HiddenF_ALPath").value == "#") {
+                    alert('Please upload Appointment Letter');
+                    document.getElementById("ContentPlaceHolder1_fuAL").focus();
+                    return false;
+                }
+            }
+            var retVal = confirm("Please recheck all entered details before submitting. Do you really want to submit ?");
+            if (retVal == true) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    </script>
+    <style type="text/css">
+        .auto-style1 {
+            height: 20px;
+        }
+    </style>
+<link href="/HBL/WebResource.axd?d=vsl2IjuhZh0PcSqwCZj5ff3O86SCPgJDO-RRpeitb_uogdOLLur00jnesbmAHC6mxBLeVKSNN5_BZmV6ZAMcqmd3kMhb897p5sncBtQ9DDFBAV3-EkHMxPUHwz6XGk-M-FzVog2&amp;t=637257547800000000" type="text/css" rel="stylesheet" /></head>
+<body background="images/Bottom_texture.jpg" >
+<form method="post" action="./JF-EmpStatus.aspx?OfferRef=R49079" id="form1" enctype="multipart/form-data">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/HBL/WebResource.axd?d=6qTnHaDLEURVcNHUvP6wuceBtjrMVU9PtZDfSt6M_mso7zYgNb64KoIZWcmhqS2OEWygk8dMjxXh8qslL0B27hDR_Cw1&amp;t=638195385163710481" type="text/javascript"></script>
+
+
+<script src="/HBL/ScriptResource.axd?d=x6a3rMr1uDpFPn0sr0_p4SWaPJ6nhBOKLLu5Oo-gR2M7pjSn05E6aUecSdrdYOJf_Culh2PkK9dmwYDORhMQjsxzSUE5LYZ-o2AAftpdp0Ao9JqW0&amp;t=23c9c237" type="text/javascript"></script>
+<script src="/HBL/ScriptResource.axd?d=ReV0vu91id2M5R6NNkoGP2f0MFXzZ9HFVi_EATSKBBLlBOfe_Vh5DgCR6ue-rknsn5CiM3z6skdllklaDT_VAgTjia-h0W62kRzCgqYKf2Fh_NMCIGYnFK-W4sgQNLNpJbgvgg2&amp;t=23c9c237" type="text/javascript"></script>
+<script src="/HBL/ScriptResource.axd?d=DWm98nrwr_cV-_9pbWY_bOVj5OXmdp9NmQuZoW5onOd-gOwGG56R-Jacf7nF-ZiRvBB9Z1B6fU02jv-jW_Ki7DHkNetVsu_yF3cr-5x-GVKrOj4W0&amp;t=23c9c237" type="text/javascript"></script>
+<script src="/HBL/ScriptResource.axd?d=DW6MOKAm6ZFfgsLJA7Xn0gm5FmuM2tdY79eIEWpZ-1e4NEWXf78iqLdxvoFyEd_BtWBRfh0OzyqCrwxST8jF8aJFOdaBHYkkkvT0TA_3K96Qs8bG0&amp;t=23c9c237" type="text/javascript"></script>
+<script src="/HBL/ScriptResource.axd?d=6ZrKtEVwOjEtiOH1YhVc43QXCufitzHI0oj_oDChZrLQmyo8aoqLOn3HrpH9tJTk40UvzIgc75mxHaxjp2vac19u14j81TGEsTjtqC7MbXvw12d8Psk8p37M4wYmBnrYFrd9hw2&amp;t=23c9c237" type="text/javascript"></script>
+<script src="/HBL/ScriptResource.axd?d=qK6WjdAoSfzddarnhaHmz3NyXBrNYoHeWmOsZepVaEwT7s2vZc2WlZi6gouKVYuovB_R_rxVd_8DRfF75Q776OOx_bYxmUtVj043sW3BDxAta1sXRFob7JhQlx4taMOIESxfbQ2&amp;t=23c9c237" type="text/javascript"></script>
+<script src="/HBL/ScriptResource.axd?d=8frYGMF_dj__r-O05yKVNtsDTLg5PvytdgoABJ_Cm0YW1f0wdq4jY1griFstJSvO2eONc0uAT_dSII-xkh82wMcx9J_xyTP2D0Rj7sgYkCZ5Pd2llv8fyzVZ_ro1C4MU8lHzVw2&amp;t=23c9c237" type="text/javascript"></script>
+<script src="/HBL/ScriptResource.axd?d=fQUj0tlh894ST0PPBWSRIqkYJGa_puUuYiplUxfHSfbyCL7XH_kIpYx6jgQOkKmZRtqBvXizY0o4fSM8TqRvjvvGdg9cwC-n2VfA7MqxpJ0KODZIiRNr8ZBr6l3rgDMlv0CrVA2&amp;t=23c9c237" type="text/javascript"></script>
+<script src="/HBL/ScriptResource.axd?d=-H4Z6mrc4ACQK6gbh2b9G2W5aQ0_sQOwn8vO6VJaKB6ESgT9JfyrwErRLyNH84vd5zWd0P_GaWZqdwzI9hBg7vIlk4tODJRIvJQ-r5kouHgX56I3yP-EYGKUpjJeMpWl0LSJ8Q2&amp;t=23c9c237" type="text/javascript"></script>
+<script src="/HBL/ScriptResource.axd?d=FSCHYL16QxiarvjxRYrN28QHMJlrOspi2n2OI0epjlQqPQlQON7V95chSeogKapGr5LhYQS1uDO8jg0eiTQjG_lu6B7I22g2jsYFCk9wgg-hvcWn8iwIoukTKZS6a7xbEtDMkw2&amp;t=23c9c237" type="text/javascript"></script>
+<script src="/HBL/ScriptResource.axd?d=iMRmBwkS50Vpz6Ls6e7eiZxBxsbvId12zw3pGThUVe1p8HGn8aMzJyDJ1g4f9Y0E76RH0vExHhC8TEkpfDozltn9CXevnxnUf-d_9HQmAPKiOs15UdUN9_bZjvaC5IgoFATJSQ2&amp;t=23c9c237" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="EA56B55F" />
+	<input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0" />
+	<input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="1019" />
+</div>
+<script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', ['tctl00$UpdatePanel1','UpdatePanel1','tctl00$ContentPlaceHolder1$uphdb','ContentPlaceHolder1_uphdb'], [], ['ctl00$ContentPlaceHolder1$LinkButton1','ContentPlaceHolder1_LinkButton1','ctl00$ContentPlaceHolder1$lblquotation1','ContentPlaceHolder1_lblquotation1','ctl00$ContentPlaceHolder1$lblquotation2','ContentPlaceHolder1_lblquotation2','ctl00$ContentPlaceHolder1$lblquotation4','ContentPlaceHolder1_lblquotation4','ctl00$ContentPlaceHolder1$rglblstatus','ContentPlaceHolder1_rglblstatus','ctl00$ContentPlaceHolder1$rglblstatus2','ContentPlaceHolder1_rglblstatus2','ctl00$ContentPlaceHolder1$pfnomination1','ContentPlaceHolder1_pfnomination1','ctl00$ContentPlaceHolder1$gratnomination1','ContentPlaceHolder1_gratnomination1','ctl00$ContentPlaceHolder1$esicnomination1','ContentPlaceHolder1_esicnomination1','ctl00$ContentPlaceHolder1$epfonomination1','ContentPlaceHolder1_epfonomination1','ctl00$ContentPlaceHolder1$gvSubMenuMaster','ContentPlaceHolder1_gvSubMenuMaster'], 90, 'ctl00');
+//]]>
+</script>
+
+<div id="element1"><div id="UpdatePanel1">
+	
+    <table border="0" cellpadding="0" cellspacing="0" class="table_Width1">
+        <tr><td colspan="2" class="header">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr><td class="logo"><img src="images/hdbfs_logo.gif" /></td>
+                        <td><table border="0" cellpadding="0" cellspacing="5" width="100%" style="height: 100%;">
+                                <tr><td colspan="3"><table border="0" cellpadding="0" cellspacing="0">
+                                                        <tr><td width="800px"><span id="header" style="color:White;font-family:Castellar;font-size:XX-Large;font-weight:bold;">HR Interaction Centre</span></td>
+                                                            <td>                                                          
+                                                            <input type="submit" name="ctl00$ctl06" value="Logout" style="color:White;font-size:Smaller;text-decoration:none;background:url('images/App-logout-icon(5).png') no-repeat 25% 25%;  border : none;padding-top:28px; " />
+                                                            
+                                                                    </td></tr></table></td></tr>
+                               <tr style="font-size: small; color: #FFFFFF; font-weight: bold;"><td align="left">User ID :<span id="lblHUserIDs">R49079</span>
+                                    </td>
+                                                                                                                         
+                   <td align="right">Date :<span id="HlblDates">18/03/2024</span></td></tr></table></td></tr></table></td></tr>
+                
+                    <tr>
+                        <td class="table_td_Width1">                      
+                <div class="sidebarmenu">
+                <ul id="sidebarmenu1">   
+                           
+                            </ul>
+                          </div>
+                        </td>
+                        <td class="table_td_width2">
+                            
+    <div id="ContentPlaceHolder1_uphdb">
+		
+            <div>
+                <fieldset>
+                    <legend>Online Joining Formalities Status</legend>
+                    
+                    <p id="demo3" style="color: green; text-align: left;">
+                        <br />
+                        Dear
+                        <span id="ContentPlaceHolder1_Label8">Raj</span>,
+                        <br />
+                    </p>
+                    <p id="demo4" style="color: green; text-align: left;">
+                        <br />
+                        A warm welcome to HDB Financial Services.  As part of our joining formalities, you need to fill the 
+joining forms online in the links provided below. All information is mandatory to be filled & submitted.
+                        <br />
+                    </p>
+
+                    <p id="demo5" style="color: green; text-align: left;">
+                        <br />
+                        Your form will go to your Reporting Manager for verification & approval, post which the Central HR Operations team will verify your joining details.
+                    </p>
+                    <p id="demo6" style="color: green; text-align: left;">
+                        <br />
+                        Any discrepancies or pendencies can be seen in the same link with the same username & password.   
+                        <br />
+                    </p>
+                    <p id="demo7" style="color: green; text-align: left;">
+                        <br />
+                        Your employee code will be generated only after the pendencies are cleared, if any. Employee Code can be viewed here or you can connect with your Manager for the same. 
+                        <br />
+                    </p>
+                    <p id="demo8" style="color: green; text-align: left;">
+                        <br />
+                        Regards, 
+                        <br />
+                        HR Team
+                    </p>
+                    <br />
+                    <p style="padding-left: 4px; padding-right: 4px; color: green; text-align: left;">
+                        <a id="ContentPlaceHolder1_LinkButton1" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$LinkButton1&#39;,&#39;&#39;)">How to complete your Joining Formalities online? Click here to know!</a>
+                    </p>
+                    <table>
+                        <tr>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_text_left" colspan="2" style="padding-left: 150px;"></td>
+                            <td class="td_text_left" colspan="2" style="padding-right: 150px;">
+                                <h3 style="color: blue;">Completion Status</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_text_left" colspan="2" style="padding-left: 150px;"><a href="JF-PersonalInfo.aspx">Personal Details</a></td>
+                            <td class="td_text_left" colspan="2" style="padding-right: 150px;">
+                                <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenField1" id="ContentPlaceHolder1_HiddenField1" value="bhaskar.verma1@hdfcbank.com" />
+                                <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenField24" id="ContentPlaceHolder1_HiddenField24" value="1" />
+                                <input type="hidden" name="ctl00$ContentPlaceHolder1$lblaltype" id="ContentPlaceHolder1_lblaltype" value="1" />
+                                <span id="ContentPlaceHolder1_Label1" style="color:Green;">Yes</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_text_left" colspan="2" style="padding-left: 150px;"><a href="JF-EducationDetails.aspx">Education Details</a></td>
+                            <td class="td_text_left" colspan="2" style="padding-right: 150px;">
+                                <span id="ContentPlaceHolder1_Label3" style="color:Green;">Yes</span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                            <td class="td_text_left" colspan="2" style="padding-left: 150px;">
+                                <a id="ContentPlaceHolder1_rglblstatus2" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$rglblstatus2&#39;,&#39;&#39;)">Experience Details</a></td>
+                            <td class="td_text_left" colspan="2" style="padding-right: 150px;">
+                                <span id="ContentPlaceHolder1_Label4" style="color:Green;">Yes</span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_text_left" colspan="2" style="padding-left: 150px;"><a href="JF-References.aspx">Reference Details</a></td>
+                            <td class="td_text_left" colspan="2" style="padding-right: 150px;">
+                                <span id="ContentPlaceHolder1_Label5" style="color:Green;">Yes</span>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_text_left" colspan="2" style="padding-left: 150px;">
+                                <a id="ContentPlaceHolder1_rglblstatus" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$rglblstatus&#39;,&#39;&#39;)">Declaration Details</a></td>
+                            <td class="td_text_left" colspan="2" style="padding-right: 150px;">
+                                <span id="ContentPlaceHolder1_Label6" style="color:Green;">Yes</span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_text_left" colspan="2" style="padding-left: 150px;"><a href="JF-EducationalDetails.aspx">Family & Retiral Details</a></td>
+                            <td class="td_text_left" colspan="2" style="padding-right: 150px;">
+                                <span id="ContentPlaceHolder1_Label2" style="color:Green;">Yes</span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+ <tr>
+                            <td class="td_text_left" colspan="2" style="padding-left: 150px;"><a href="JF-Insurance.aspx">Insurance Details</a></td>
+                               
+                             
+                            <td class="td_text_left" colspan="2" style="padding-right: 150px;">
+                                <span id="ContentPlaceHolder1_Label11" style="color:Green;">Yes</span>
+                            </td>
+
+                        </tr>
+
+                         <tr>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+
+
+                        
+                    </table>
+                    <div>
+                        <input type="hidden" name="ctl00$ContentPlaceHolder1$hdnLabel7" id="ContentPlaceHolder1_hdnLabel7" value="Yes" />
+                        <span id="ContentPlaceHolder1_lblemsg"></span>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; padding-left: 5px; padding-right: 10px; padding-bottom: 8px; text-align: justify; color: #001F79;">
+                                    <span class="aspNetDisabled"><input id="ContentPlaceHolder1_CheckBox1" type="checkbox" name="ctl00$ContentPlaceHolder1$CheckBox1" checked="checked" disabled="disabled" /></span>I hereby declare that the information furnished above is true.
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; padding-left: 5px; padding-right: 10px; padding-bottom: 8px; text-align: justify; color: #001F79;">
+                                    I further declare that if any of the above information is found to be inaccurate or false in any respect, my appointment, even as a permanent employee, will be considered ineffective and irregular and would be liable to be terminated by the company immediately.
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td class="td_text_left" colspan="2" style="padding-left: 40px; padding-right: 80px;">Date :
+                                <span id="ContentPlaceHolder1_Label9">18-Mar-2024</span></td>
+                            <td class="td_text_left" colspan="2">Name :
+                                <span id="ContentPlaceHolder1_Label10">Raj Kumar Sahu</span>
+                                <input type="hidden" name="ctl00$ContentPlaceHolder1$EmpName" id="ContentPlaceHolder1_EmpName" value="Raj Kumar Sahu" />
+                                <input type="hidden" name="ctl00$ContentPlaceHolder1$EmpMobile" id="ContentPlaceHolder1_EmpMobile" value="8239688824" />
+                                <input type="hidden" name="ctl00$ContentPlaceHolder1$EmpEmail" id="ContentPlaceHolder1_EmpEmail" value="rajkumarsahu8824@gmail.com" />
+                                <input type="hidden" name="ctl00$ContentPlaceHolder1$EmpAadhar" id="ContentPlaceHolder1_EmpAadhar" value="3719" />
+                                <input type="hidden" name="ctl00$ContentPlaceHolder1$EmpHric" id="ContentPlaceHolder1_EmpHric" value="HRIC419190" />
+                                <input type="hidden" name="ctl00$ContentPlaceHolder1$EmpTarget" id="ContentPlaceHolder1_EmpTarget" />
+                                <input type="hidden" name="ctl00$ContentPlaceHolder1$EmpClause" id="ContentPlaceHolder1_EmpClause" />
+                            </td>
+                        </tr>
+                    </table>
+            </div>
+            </fieldset>
+
+             <div>
+                 <div id="ContentPlaceHolder1_UpdateProgress1" style="display:none;">
+			
+                         <img src="images/loader.gif" />
+                     
+		</div>
+             </div>
+            <div id="ContentPlaceHolder1_Panel5">
+			
+                <br />
+                <fieldset>
+                    <legend>Manager Details</legend>
+                    <table>
+                        <tr>
+                            <td class="td_text_left">Date of Joining* :
+                            </td>
+                            <td class="td_text_left">
+                                <input name="ctl00$ContentPlaceHolder1$txtdateofjoin" type="text" value="March 18, 2024" id="ContentPlaceHolder1_txtdateofjoin" disabled="disabled" class="aspNetDisabled textBox" onKeyDown="preventBackspace();" readonly="true" />
+                                
+
+                            </td>
+                            
+
+                        </tr>
+
+                        <tr>
+                            <td class="td_text_left">Manager Employee Code* :
+                            </td>
+                            <td class="td_text_left">
+                                <input name="ctl00$ContentPlaceHolder1$txtReportingtoID" type="text" value="MB10381" maxlength="8" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$txtReportingtoID\&#39;,\&#39;\&#39;)&#39;, 0)" onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;" id="ContentPlaceHolder1_txtReportingtoID" disabled="disabled" class="aspNetDisabled textBox" />
+                            </td>
+
+                            <td class="td_text_left">Manager Name*  :
+                            </td>
+                            <td class="td_text_left">
+                                <input name="ctl00$ContentPlaceHolder1$txtReportingtoName" type="text" value="Bhaskar Verma1" id="ContentPlaceHolder1_txtReportingtoName" disabled="disabled" class="aspNetDisabled textBox" />
+                                <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenField2" id="ContentPlaceHolder1_HiddenField2" value="bhaskar.verma1@hdfcbank.com" />
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="td_text_left" colspan="4">
+                                <span id="ContentPlaceHolder1_lblattempts"></span>
+                                <br />
+                                <span id="ContentPlaceHolder1_lblotpmesg"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            
+		</div>
+            <br />
+            <br />
+            <span id="ContentPlaceHolder1_lblemsg2"></span>
+            <input type="hidden" name="ctl00$ContentPlaceHolder1$HidOTPcount" id="ContentPlaceHolder1_HidOTPcount" value="0" />
+            <br />
+            <input type="hidden" name="ctl00$ContentPlaceHolder1$SignVerify" id="ContentPlaceHolder1_SignVerify" value="1" />
+ 	    <input type="hidden" name="ctl00$ContentPlaceHolder1$FormsSign" id="ContentPlaceHolder1_FormsSign" />
+            <input type="hidden" name="ctl00$ContentPlaceHolder1$StatVerify" id="ContentPlaceHolder1_StatVerify" />
+            <input type="hidden" name="ctl00$ContentPlaceHolder1$StatGenerate" id="ContentPlaceHolder1_StatGenerate" value="1" />
+            <input type="hidden" name="ctl00$ContentPlaceHolder1$SheetType" id="ContentPlaceHolder1_SheetType" value="2" />
+            
+
+
+            
+            
+            <div id="ContentPlaceHolder1_Panel3">
+			
+                <div>
+                    <fieldset>
+                        <legend>Statutory Forms</legend>
+                        
+                        <table>
+                            <table>
+                                <tr style="height: 20px">
+                                    <td>
+                                        <p style="text-align: left;">
+                                            <a id="ContentPlaceHolder1_pfnomination1" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$pfnomination1&#39;,&#39;&#39;)">PF Nomination Form</a>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr style="height: 20px">
+                                    <td>
+                                        <p style="text-align: left;">
+                                            <a id="ContentPlaceHolder1_gratnomination1" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gratnomination1&#39;,&#39;&#39;)">Gratuity Nomination Form</a>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr style="height: 20px">
+                                    <td>
+                                        <p style="text-align: left;">
+                                            <a id="ContentPlaceHolder1_epfonomination1" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$epfonomination1&#39;,&#39;&#39;)">EPFO Form</a>
+                                        </p>
+
+                                    </td>
+                                </tr>
+                                <tr style="height: 20px">
+                                    <td>
+                                        <div id="ContentPlaceHolder1_Panel4">
+				
+                                            
+                                            <p style="text-align: left;">
+                                                <a id="ContentPlaceHolder1_esicnomination1" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$esicnomination1&#39;,&#39;&#39;)">ESIC Nomination Form</a>
+                                            </p>
+                                        
+			</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; padding-left: 5px; padding-right: 10px; padding-bottom: 8px; text-align: justify; color: #001F79;">
+                                            <span class="aspNetDisabled"><input id="ContentPlaceHolder1_CheckBox2" type="checkbox" name="ctl00$ContentPlaceHolder1$CheckBox2" checked="checked" disabled="disabled" /></span>I hereby declare that the details reflecting in statutory forms is correct.
+                                        </p>
+                                    </td>
+                                </tr>
+                                
+
+
+
+
+
+                            </table>
+                    </fieldset>
+                    <br />
+                    
+                    
+                    <br />
+                </div>
+            
+		</div>
+            <div>
+                <br />
+                 
+                <br />
+                <span id="ContentPlaceHolder1_lblmesg" style="color:Green;font-size:Medium;">Your Joining formalities Status: Your Joining Form has been sent to your Reporting Manager for verification.</span>
+            </div>
+            <div id="ContentPlaceHolder1_Panel1">
+			
+                <div>
+                    <fieldset>
+                        <legend>Documents Verification</legend>
+
+                        <table>
+                            <tr>
+                                <td class="td_text_left">Photograph</td>
+                                <td class="td_text_left" colspan="2">Photograph Clear ?
+                                </td>
+
+
+                                <td class="td_text_center" colspan="2">
+                                    <table id="ContentPlaceHolder1_rbtDOJMIsmatch" class="aspNetDisabled">
+				<tr>
+					<td><span class="aspNetDisabled"><input id="ContentPlaceHolder1_rbtDOJMIsmatch_0" type="radio" name="ctl00$ContentPlaceHolder1$rbtDOJMIsmatch" value="True" disabled="disabled" /><label for="ContentPlaceHolder1_rbtDOJMIsmatch_0">YES</label></span></td><td><span class="aspNetDisabled"><input id="ContentPlaceHolder1_rbtDOJMIsmatch_1" type="radio" name="ctl00$ContentPlaceHolder1$rbtDOJMIsmatch" value="False" checked="checked" disabled="disabled" /><label for="ContentPlaceHolder1_rbtDOJMIsmatch_1">NO</label></span></td>
+				</tr>
+			</table>
+                                </td>
+                                <td class="td_text_left">
+                                    <textarea name="ctl00$ContentPlaceHolder1$txtDOJMISmatch" rows="2" cols="20" id="ContentPlaceHolder1_txtDOJMISmatch" disabled="disabled" class="aspNetDisabled textBox" style="height:30px;width:150px;">
+</textarea>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br />
+                                </td>
+                            </tr>
+                            <div id="ContentPlaceHolder1_Panel9">
+				
+                                <tr>
+                                    <td class="td_text_left">Statutory Forms</td>
+                                    <td class="td_text_left" colspan="2">E-signed Statutory forms correct ?
+                                    </td>
+
+
+                                    <td class="td_text_center" colspan="2">
+                                        <table id="ContentPlaceHolder1_rbtStatEsigned" class="aspNetDisabled">
+					<tr>
+						<td><span class="aspNetDisabled"><input id="ContentPlaceHolder1_rbtStatEsigned_0" type="radio" name="ctl00$ContentPlaceHolder1$rbtStatEsigned" value="True" disabled="disabled" /><label for="ContentPlaceHolder1_rbtStatEsigned_0">YES</label></span></td><td><span class="aspNetDisabled"><input id="ContentPlaceHolder1_rbtStatEsigned_1" type="radio" name="ctl00$ContentPlaceHolder1$rbtStatEsigned" value="False" disabled="disabled" /><label for="ContentPlaceHolder1_rbtStatEsigned_1">NO</label></span></td>
+					</tr>
+				</table>
+                                    </td>
+                                    <td class="td_text_left">
+                                        <textarea name="ctl00$ContentPlaceHolder1$txtStatEsigned" rows="2" cols="20" id="ContentPlaceHolder1_txtStatEsigned" disabled="disabled" class="aspNetDisabled textBox" style="height:30px;width:150px;">
+</textarea>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br />
+                                    </td>
+                                </tr>
+                            
+			</div>
+                            <tr>
+                                <td class="td_text_left" colspan="2"></td>
+                                <td class="td_text_left">
+                                    <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; color: #001F79;">
+                                        Manager Verified
+                                    </p>
+                                </td>
+                                <td class="td_text_center">
+                                    <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; color: #001F79;">
+                                        Manager Remarks
+                                    </p>
+                                </td>
+                                <td class="td_text_left">
+                                    <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; color: #001F79;">
+                                        HR Verified
+                                    </p>
+                                </td>
+                                <td class="td_text_center">
+                                    <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; color: #001F79;">
+                                        HR Remarks
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="td_text_left">PAN Card
+                                </td>
+                                <td class="td_text_left">
+                                    <a id="ContentPlaceHolder1_lblquotation1" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$lblquotation1&#39;,&#39;&#39;)">Download</a>
+                                    
+                                </td>
+                                <td class="td_text_center">
+                                    <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; color: #001F79;">
+                                        <span class="aspNetDisabled"><input id="ContentPlaceHolder1_CheckBox5" type="checkbox" name="ctl00$ContentPlaceHolder1$CheckBox5" disabled="disabled" /></span>
+                                    </p>
+                                </td>
+                                <td class="td_text_left">
+                                    <textarea name="ctl00$ContentPlaceHolder1$txtPanRemarks" rows="2" cols="20" id="ContentPlaceHolder1_txtPanRemarks" disabled="disabled" class="aspNetDisabled textBox" style="height:30px;width:150px;">
+</textarea></td>
+                                <td class="td_text_center">
+                                    <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; color: #001F79;">
+                                        <span class="aspNetDisabled"><input id="ContentPlaceHolder1_HCheckBox5" type="checkbox" name="ctl00$ContentPlaceHolder1$HCheckBox5" disabled="disabled" /></span>
+                                    </p>
+                                </td>
+                                <td class="td_text_left">
+                                    <textarea name="ctl00$ContentPlaceHolder1$txtPanRemarksH" rows="2" cols="20" id="ContentPlaceHolder1_txtPanRemarksH" class="textBox" style="height:30px;width:150px;">
+</textarea></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_text_left">DOB Proof                              
+                                </td>
+                                <td class="td_text_left">
+                                    <a id="ContentPlaceHolder1_lblquotation3" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$lblquotation3&#39;,&#39;&#39;)">Download</a>
+                                    
+                                </td>
+                                <td class="td_text_center">
+                                    <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; color: #001F79;">
+                                        <span class="aspNetDisabled"><input id="ContentPlaceHolder1_CheckBox9" type="checkbox" name="ctl00$ContentPlaceHolder1$CheckBox9" disabled="disabled" /></span>
+                                    </p>
+                                </td>
+                                <td class="td_text_left">
+                                    <textarea name="ctl00$ContentPlaceHolder1$txtDobRemarks" rows="2" cols="20" id="ContentPlaceHolder1_txtDobRemarks" disabled="disabled" class="aspNetDisabled textBox" style="height:30px;width:150px;">
+</textarea></td>
+                                <td class="td_text_center">
+                                    <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; color: #001F79;">
+                                        <span class="aspNetDisabled"><input id="ContentPlaceHolder1_HCheckBox9" type="checkbox" name="ctl00$ContentPlaceHolder1$HCheckBox9" disabled="disabled" /></span>
+                                    </p>
+                                </td>
+                                <td class="td_text_left">
+                                    <textarea name="ctl00$ContentPlaceHolder1$txtDobRemarksH" rows="2" cols="20" id="ContentPlaceHolder1_txtDobRemarksH" class="textBox" style="height:30px;width:150px;">
+</textarea></td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br />
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="td_text_left">AADHAR Card
+                                </td>
+                                <td class="td_text_left">
+                                    <a id="ContentPlaceHolder1_lblquotation2" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$lblquotation2&#39;,&#39;&#39;)">Download</a>
+                                    
+                                </td>
+                                <td class="td_text_center">
+                                    <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; color: #001F79;">
+                                        <span class="aspNetDisabled"><input id="ContentPlaceHolder1_CheckBox8" type="checkbox" name="ctl00$ContentPlaceHolder1$CheckBox8" disabled="disabled" /></span>
+                                    </p>
+                                </td>
+                                <td class="td_text_left">
+                                    <textarea name="ctl00$ContentPlaceHolder1$txtAadharRemarks" rows="2" cols="20" id="ContentPlaceHolder1_txtAadharRemarks" disabled="disabled" class="aspNetDisabled textBox" style="height:30px;width:150px;">
+</textarea></td>
+                                <td class="td_text_center">
+                                    <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; color: #001F79;">
+                                        <span class="aspNetDisabled"><input id="ContentPlaceHolder1_HCheckBox8" type="checkbox" name="ctl00$ContentPlaceHolder1$HCheckBox8" disabled="disabled" /></span>
+                                    </p>
+                                </td>
+                                <td class="td_text_left">
+                                    <textarea name="ctl00$ContentPlaceHolder1$txtAadharRemarksH" rows="2" cols="20" id="ContentPlaceHolder1_txtAadharRemarksH" class="textBox" style="height:30px;width:150px;">
+</textarea></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_text_left">Residence Proof                               
+                                </td>
+                                <td class="td_text_left">
+                                    <a id="ContentPlaceHolder1_lblquotation4" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$lblquotation4&#39;,&#39;&#39;)">Download</a>
+                                    
+                                </td>
+                                <td class="td_text_center">
+                                    <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; color: #001F79;">
+                                        <span class="aspNetDisabled"><input id="ContentPlaceHolder1_CheckBox10" type="checkbox" name="ctl00$ContentPlaceHolder1$CheckBox10" disabled="disabled" /></span>
+                                    </p>
+                                </td>
+                                <td class="td_text_left">
+                                    <textarea name="ctl00$ContentPlaceHolder1$txtResiRemarks" rows="2" cols="20" id="ContentPlaceHolder1_txtResiRemarks" disabled="disabled" class="aspNetDisabled textBox" style="height:30px;width:150px;">
+</textarea></td>
+                                <td class="td_text_center">
+                                    <p style="font-size: 14px; font-weight: normal; font-family: Tahoma, Arial, Helvetica, Sans-Serif; color: #001F79;">
+                                        <span class="aspNetDisabled"><input id="ContentPlaceHolder1_HCheckBox10" type="checkbox" name="ctl00$ContentPlaceHolder1$HCheckBox10" disabled="disabled" /></span>
+                                    </p>
+                                </td>
+                                <td class="td_text_left">
+                                    <textarea name="ctl00$ContentPlaceHolder1$txtResiRemarksH" rows="2" cols="20" id="ContentPlaceHolder1_txtResiRemarksH" class="textBox" style="height:30px;width:150px;">
+</textarea></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br />
+                                </td>
+                            </tr>
+                            
+                            
+                        </table>
+                        <fieldset>
+                            <legend>Education Details</legend>
+                            <div>
+				<table cellspacing="0" id="ContentPlaceHolder1_gvSubMenuMaster" style="border-collapse:collapse;">
+					<tr class="gridview_header" style="font-size:11px;height:20px;">
+						<th scope="col">Level</th><th scope="col">Qualification</th><th scope="col" style="width:80px;">Certificate</th><th scope="col" style="width:80px;">Manager Verified</th><th scope="col" style="width:80px;">Manager Remarks</th><th scope="col" style="width:80px;">HR Verified</th><th scope="col" style="width:80px;">HR Remarks</th>
+					</tr><tr class="gridviewrow">
+						<td align="center">
+                                            <span id="ContentPlaceHolder1_gvSubMenuMaster_glblLevel_0">X Std</span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        </td><td align="center">
+                                            <span id="ContentPlaceHolder1_gvSubMenuMaster_glblQualification_0">OTHERS</span>
+                                        </td><td align="center" style="width:80px;">
+                                            <a id="ContentPlaceHolder1_gvSubMenuMaster_lblquotation5_0" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl02$lblquotation5&#39;,&#39;&#39;)">Download</a>
+                                        </td><td align="center" style="width:80px;">
+                                            <span class="aspNetDisabled"><input id="ContentPlaceHolder1_gvSubMenuMaster_CheckBox10_0" type="checkbox" name="ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl02$CheckBox10" disabled="disabled" /></span>
+                                        </td><td align="center" style="width:80px;">
+                                            <textarea name="ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl02$txtEduRemarks" rows="2" cols="20" id="ContentPlaceHolder1_gvSubMenuMaster_txtEduRemarks_0" disabled="disabled" class="aspNetDisabled textBox" style="height:30px;width:150px;margin-top: 5px;">
+</textarea></td>
+                                        </td><td align="center" style="width:80px;">
+                                            <span class="aspNetDisabled"><input id="ContentPlaceHolder1_gvSubMenuMaster_CheckBox11_0" type="checkbox" name="ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl02$CheckBox11" disabled="disabled" /></span>
+                                        </td><td align="center" style="width:80px;">
+                                            <textarea name="ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl02$txtEduRemarks1" rows="2" cols="20" id="ContentPlaceHolder1_gvSubMenuMaster_txtEduRemarks1_0" disabled="disabled" class="aspNetDisabled textBox" style="height:30px;width:150px;margin-top: 5px;">
+</textarea></td>
+                                        </td>
+					</tr><tr class="gridview_alternativerows">
+						<td align="center">
+                                            <span id="ContentPlaceHolder1_gvSubMenuMaster_glblLevel_1">Graduation</span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        </td><td align="center">
+                                            <span id="ContentPlaceHolder1_gvSubMenuMaster_glblQualification_1">Bachelor of Computer Applications(B.C.A)</span>
+                                        </td><td align="center" style="width:80px;">
+                                            <a id="ContentPlaceHolder1_gvSubMenuMaster_lblquotation5_1" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl03$lblquotation5&#39;,&#39;&#39;)">Download</a>
+                                        </td><td align="center" style="width:80px;">
+                                            <span class="aspNetDisabled"><input id="ContentPlaceHolder1_gvSubMenuMaster_CheckBox10_1" type="checkbox" name="ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl03$CheckBox10" disabled="disabled" /></span>
+                                        </td><td align="center" style="width:80px;">
+                                            <textarea name="ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl03$txtEduRemarks" rows="2" cols="20" id="ContentPlaceHolder1_gvSubMenuMaster_txtEduRemarks_1" disabled="disabled" class="aspNetDisabled textBox" style="height:30px;width:150px;margin-top: 5px;">
+</textarea></td>
+                                        </td><td align="center" style="width:80px;">
+                                            <span class="aspNetDisabled"><input id="ContentPlaceHolder1_gvSubMenuMaster_CheckBox11_1" type="checkbox" name="ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl03$CheckBox11" disabled="disabled" /></span>
+                                        </td><td align="center" style="width:80px;">
+                                            <textarea name="ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl03$txtEduRemarks1" rows="2" cols="20" id="ContentPlaceHolder1_gvSubMenuMaster_txtEduRemarks1_1" disabled="disabled" class="aspNetDisabled textBox" style="height:30px;width:150px;margin-top: 5px;">
+</textarea></td>
+                                        </td>
+					</tr><tr class="gridviewrow">
+						<td align="center">
+                                            <span id="ContentPlaceHolder1_gvSubMenuMaster_glblLevel_2">XII Equivalent</span>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        </td><td align="center">
+                                            <span id="ContentPlaceHolder1_gvSubMenuMaster_glblQualification_2">OTHERS</span>
+                                        </td><td align="center" style="width:80px;">
+                                            <a id="ContentPlaceHolder1_gvSubMenuMaster_lblquotation5_2" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl04$lblquotation5&#39;,&#39;&#39;)">Download</a>
+                                        </td><td align="center" style="width:80px;">
+                                            <span class="aspNetDisabled"><input id="ContentPlaceHolder1_gvSubMenuMaster_CheckBox10_2" type="checkbox" name="ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl04$CheckBox10" disabled="disabled" /></span>
+                                        </td><td align="center" style="width:80px;">
+                                            <textarea name="ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl04$txtEduRemarks" rows="2" cols="20" id="ContentPlaceHolder1_gvSubMenuMaster_txtEduRemarks_2" disabled="disabled" class="aspNetDisabled textBox" style="height:30px;width:150px;margin-top: 5px;">
+</textarea></td>
+                                        </td><td align="center" style="width:80px;">
+                                            <span class="aspNetDisabled"><input id="ContentPlaceHolder1_gvSubMenuMaster_CheckBox11_2" type="checkbox" name="ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl04$CheckBox11" disabled="disabled" /></span>
+                                        </td><td align="center" style="width:80px;">
+                                            <textarea name="ctl00$ContentPlaceHolder1$gvSubMenuMaster$ctl04$txtEduRemarks1" rows="2" cols="20" id="ContentPlaceHolder1_gvSubMenuMaster_txtEduRemarks1_2" disabled="disabled" class="aspNetDisabled textBox" style="height:30px;width:150px;margin-top: 5px;">
+</textarea></td>
+                                        </td>
+					</tr>
+				</table>
+			</div>
+                        </fieldset>
+                </div>
+                <div>
+                </div>
+            
+		</div>
+
+
+
+        
+	</div>
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenField10" id="ContentPlaceHolder1_HiddenField10" value="March 16, 2024" />
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenF_PF" id="ContentPlaceHolder1_HiddenF_PF" value="1" />
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenF_Grat" id="ContentPlaceHolder1_HiddenF_Grat" value="1" />
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenF_EPFO" id="ContentPlaceHolder1_HiddenF_EPFO" value="1" />
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenF_ESIC" id="ContentPlaceHolder1_HiddenF_ESIC" value="1" />
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenF_AppLtr" id="ContentPlaceHolder1_HiddenF_AppLtr" value="1" />
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenF_PFPath" id="ContentPlaceHolder1_HiddenF_PFPath" value="#1" />
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenF_GratPath" id="ContentPlaceHolder1_HiddenF_GratPath" value="#1" />
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenF_EPFOPath" id="ContentPlaceHolder1_HiddenF_EPFOPath" value="#1" />
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenF_ESICPath" id="ContentPlaceHolder1_HiddenF_ESICPath" value="#1" />
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenF_ALPath" id="ContentPlaceHolder1_HiddenF_ALPath" value="#1" />
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenF_StatForms" id="ContentPlaceHolder1_HiddenF_StatForms" value="Yes" />
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenF_PanelStatFrms" id="ContentPlaceHolder1_HiddenF_PanelStatFrms" />
+    
+
+                        </td>
+        </tr>        
+    </table>
+            
+</div></div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+
+theForm.oldOnLoad = window.onload;
+window.onload = WebForm_RestoreScrollPosition;
+Sys.Application.add_init(function() {
+    $create(Sys.UI._UpdateProgress, {"associatedUpdatePanelId":"ContentPlaceHolder1_uphdb","displayAfter":500,"dynamicLayout":true}, null, null, $get("ContentPlaceHolder1_UpdateProgress1"));
+});
+Sys.Application.add_init(function() {
+    $create(Sys.Extended.UI.CalendarBehavior, {"cssClass":"MyCalendar","endDate":"Mon, 18 Mar 2024 17:57:23 GMT","format":"MMMM d, yyyy","id":"ContentPlaceHolder1_CalendarExtender2","startDate":"Wed, 13 Mar 2024 17:57:23 GMT"}, {"dateSelectionChanged":DateSelectionChanged2}, null, $get("ContentPlaceHolder1_txtdateofjoin"));
+});
+//]]>
+</script>
+</form></body>
+</html>
+
