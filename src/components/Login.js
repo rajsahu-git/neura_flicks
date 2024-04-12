@@ -2,8 +2,10 @@ import React, { useState ,useRef} from 'react'
 import Header from './Header'
 import { checkValidation } from '../utils/Validate'
 import { auth } from '../utils/Firebase'
-import {  signInWithEmailAndPassword , createUserWithEmailAndPassword } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
+import {  signInWithEmailAndPassword , createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+// import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { AddUser } from '../utils/AuthenticationSlice'
 
 export const Login = () => {
     const [isSignInForm,setSignInForm] = useState(true)
@@ -11,7 +13,9 @@ export const Login = () => {
     const name = useRef(null)
     const email = useRef(null)
     const password = useRef(null)
-    const navigate = useNavigate()
+    
+    const dispatch = useDispatch()
+
 
 
     const toggleSignInForm =()=>{
@@ -28,8 +32,19 @@ export const Login = () => {
             createUserWithEmailAndPassword(auth,email.current.value,password.current.value,name.current.value)
             .then((userCredential)=>{
                 const user = userCredential.user
-                console.log(user)
-                navigate("/browse")
+                updateProfile (user,auth.currentUser, {
+                    displayName: name.current.value,                     
+                  }).then(() => {
+                    // Profile updated!
+                    const {uid,email,displayName,} = auth.currentUser;
+                    dispatch(AddUser({uid:uid,email:email,displayName:displayName}))
+                    
+                    // ...
+                  }).catch((error) => {
+                    // An error occurred
+                    setErrorMessage(error.message) // ...
+                  });
+
 
             }).catch((error)=>{
                 const errorCode = error.code;
@@ -38,11 +53,10 @@ export const Login = () => {
             })
         }
         else{    
-            signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+            signInWithEmailAndPassword(auth, email.current.value, password.current.value,name?.current?.value)
             .then((userCredential) => { 
             const user = userCredential.user;
-            console.log(user)
-            navigate("/browse")
+            
   })
   .catch((error) => {
     const errorCode = error.code;
