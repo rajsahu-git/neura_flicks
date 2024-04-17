@@ -6,7 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import {  useDispatch, useSelector } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth'
 import { AddUser, RemoveUser } from '../utils/AuthenticationSlice'
-
+import { toggleGptSearchView } from '../utils/GptSearchSlice';
+import GptSearch from './GptSearch'
+// import { useSelector } from 'react-redux'
 
 
 function Header() {
@@ -14,6 +16,7 @@ function Header() {
   const dispatch = useDispatch()
 
   const authentication = useSelector((store)=> store.authentication)
+  const showGptSearchView = useSelector(store=>store.gpt.showGptSearch)
   
 
   const handleToSignOut = () =>{
@@ -23,6 +26,10 @@ function Header() {
   
 });
   }
+  const GptSearchHandler =()=>{
+    dispatch(toggleGptSearchView())
+  }
+  // console.log(GptSearchHandler())
   useEffect(()=>{
     const unsubscribe =  onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -54,7 +61,7 @@ function Header() {
         {authentication && (
       
         <div className='flex z-10  h-40  p-8 '>
-          <button className='px-4 py-2 h-14 mt-5 rounded-lg bg-[#38ada9] text-orange-50'>GPT Search</button>
+          <button className='px-4 py-2 h-14 mt-5 rounded-lg bg-[#38ada9] text-orange-50' onClick={GptSearchHandler} >{showGptSearchView? "Home Page":"GPT Search"}</button>
           <img className='p-4' src="https://wallpapers.com/images/high/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.webp" alt="User Logo" />
           <h2>{authentication.displayName}</h2>
           <button className='w-20 m-4 rounded-lg h-12 bg-red-600 text-white' onClick={handleToSignOut} >Log out</button>

@@ -12,9 +12,9 @@ function MovieListContainer() {
   return (
     <div className='bg-black '>
 
-      <h1 className='text-white px-4 font-light text-3xl pt-5'>Now Playing</h1>
 
       <div className='no-scrollbar  overflow-x-scroll scroll relative scroll-smooth items-center  '>
+      <h1 className='text-white px-4 font-light text-3xl pt-5'>Now Playing</h1>
       
         <div className='flex'>
           < MovieList movieList={movieList} />
@@ -43,9 +43,3 @@ function MovieListContainer() {
 export default MovieListContainer
 
 
-
-// {movieList?.results?.map(data=>(
-//   <>
-//   <div className='flex'>
-//     <img  src={"https://image.tmdb.org/t/p/w200"+data?.poster_path} alt="" />
-//   </div>

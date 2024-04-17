@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Login from './Login'
 import Browse from './Browse'
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
+import Movie_Details from './Movie_Details'
 
 
 const appRouter = createBrowserRouter([
@@ -11,8 +12,13 @@ const appRouter = createBrowserRouter([
   },
   {
     path:'/browse',
-    element:<Browse />
-  }
+    element:<Browse />,
+    
+  },
+  {
+    path: "/movie_details/:movie_id",
+    element: <Movie_Details />,
+  },
 ])
 
 
@@ -29,3 +35,9 @@ function Body() {
 }
 
 export default Body
+
+
+
+
+
+
